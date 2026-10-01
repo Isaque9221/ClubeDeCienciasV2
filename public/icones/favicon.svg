@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <clipPath id="disco">
+      <circle cx="32" cy="32" r="26" />
+    </clipPath>
+  </defs>
+  <circle cx="32" cy="32" r="31" fill="#5f7f2f" />
+  <circle cx="32" cy="32" r="26" fill="#f7eed8" />
+  <rect x="0" y="41" width="64" height="30" fill="#86a64a" clip-path="url(#disco)" />
+  <path d="M29 30h6l1.6 12h-9.2z" fill="#a4481a" />
+  <path d="M28.4 41.5c-3 1.6-6 2.6-9.4 2.9M35.6 41.5c3 1.6 6 2.6 9.4 2.9" stroke="#a4481a" stroke-width="2.6" stroke-linecap="round" fill="none" />
+  <g fill="#e06b2c">
+    <circle cx="21.5" cy="25" r="8.5" />
+    <circle cx="42.5" cy="25" r="8.5" />
+    <circle cx="32" cy="18.5" r="10.5" />
+    <ellipse cx="32" cy="27.5" rx="15.5" ry="7.5" />
+  </g>
+</svg>

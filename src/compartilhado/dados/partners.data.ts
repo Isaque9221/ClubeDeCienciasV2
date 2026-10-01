@@ -1,0 +1,72 @@
+import type { Partner, NavLinkItem } from "@/compartilhado/tipos/partner.types";
+
+export const PARTNERS: Partner[] = [
+  {
+    id: "cnpq",
+    name: "CNPq",
+    fullName: "Conselho Nacional de Desenvolvimento Científico e Tecnológico",
+    category: "Fomento à Pesquisa",
+    type: "Federal",
+    color: "#4ADE80",
+    desc: "Principal agência federal de fomento à pesquisa do Brasil, impulsionando a investigação científica e o desenvolvimento tecnológico nacional.",
+    logo: "/parceiros/Logo CNPq.png",
+  },
+  {
+    id: "fapesp",
+    name: "FAPESP",
+    fullName: "Fundação de Amparo à Pesquisa",
+    category: "Fomento à Pesquisa",
+    type: "Fomento Estadual",
+    color: "#38BDF8",
+    desc: "Apoio a projetos de pesquisa científica, infraestrutura laboratorial e inovação tecnológica com padrão internacional de excelência.",
+    logo: "/parceiros/Logo FAPESP.png",
+  },
+  {
+    id: "ufba",
+    name: "UFBA",
+    fullName: "Universidade Federal da Bahia",
+    category: "Academia Parceira",
+    type: "Universidade Federal",
+    color: "#C084FC",
+    desc: "Uma das maiores universidades federais do país, com parceria perene de pesquisa e extensão científica com o grupo do Prof. Dr. Charbel El-Hani.",
+    logo: "/parceiros/Logo UFBA.png",
+  },
+  {
+    id: "lefhbio",
+    name: "LEFHBio",
+    fullName: "Laboratório de Fitoquímica e Herbologia Biológica",
+    category: "Laboratório Parceiro",
+    type: "Laboratório Avançado",
+    color: "#F59E0B",
+    desc: "Laboratório especializado em pesquisa de fitoquímica e plantas medicinais, conectando a biodiversidade da Caatinga ao rigor experimental.",
+    logo: "/parceiros/Logo LEFHBio.jpg",
+  },
+  {
+    id: "uefs",
+    name: "UEFS",
+    fullName: "Universidade Estadual de Feira de Santana",
+    category: "Academia Parceira",
+    type: "Universidade Estadual",
+    color: "#3B82F6",
+    desc: "Instituição de excelência na Bahia, viabilizando bolsas de Iniciação Científica Júnior sob orientação das Profas. Mariana Araujo e Indianara Lima.",
+    logo: "/parceiros/Logo UEFS.png",
+  },
+  {
+    id: "feciba",
+    name: "FECIBA",
+    fullName: "Feira de Ciências da Bahia",
+    category: "Chancela Estadual",
+    type: "Mostra Científica",
+    color: "#FACC15",
+    desc: "A principal mostra científica da educação básica da Bahia, chancelando e premiando os projetos inovadores dos estudantes do CECLOS.",
+    logo: "/parceiros/Logo FECIBA.png",
+  },
+];
+
+export const NAV_LINKS: NavLinkItem[] = [
+  { label: "Sobre Nós", id: "sobre-nos" },
+  { label: "Trajetória", id: "trajetoria" },
+  { label: "Pilares", id: "pilares" },
+  { label: "Quem Faz Acontecer", id: "equipe" },
+  { label: "Junte-se ao Clube", id: "junte-se" },
+];

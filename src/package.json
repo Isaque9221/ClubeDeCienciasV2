@@ -1,0 +1,49 @@
+{
+  "name": "site-2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "postinstall": "node scripts/patch-vite.cjs",
+    "test": "npm run test:data && npm run test:migration && npm run test:persistencia && npm run test:seguranca && npm run test:estatisticas",
+    "verify": "npm run lint && npm run format:check && npm run test && npm run build",
+    "test:data": "node scripts/check-data.cjs",
+    "test:migration": "jiti scripts/check-migration.ts",
+    "test:persistencia": "jiti scripts/check-persistencia.ts",
+    "test:seguranca": "jiti scripts/check-seguranca.ts",
+    "test:estatisticas": "jiti scripts/check-estatisticas.ts",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"scripts/**/*.{ts,cjs}\" \"api/**/*.ts\" \"public/js/*.js\" vite.config.ts index.html",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"scripts/**/*.{ts,cjs}\" \"api/**/*.ts\" \"public/js/*.js\" vite.config.ts index.html",
+    "gerar-token": "jiti scripts/gerar-token.ts",
+    "gerar-tintas": "node scripts/gerar-tintas-claro.cjs && prettier --write src/app/tema-claro-tintas.css"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@tailwindcss/vite": "^4.3.3",
+    "dompurify": "^3.4.16",
+    "framer-motion": "^13.0.0",
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.30.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "jiti": "^2.7.0",
+    "oxlint": "^1.75.0",
+    "prettier": "^3.9.9",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

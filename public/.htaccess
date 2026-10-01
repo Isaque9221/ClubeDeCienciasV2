@@ -1,0 +1,114 @@
+# ==============================================================================
+# Clube de Ciências CECLOS — Configuração Apache / LiteSpeed (Hostinger)
+# ==============================================================================
+
+# 1. TIPOS MIME
+# Garante que o LiteSpeed/Apache sirva arquivos modernos com os tipos corretos.
+<IfModule mod_mime.c>
+  AddType application/javascript .js .mjs
+  AddType application/manifest+json .webmanifest
+  AddType image/svg+xml .svg
+  AddType font/woff2 .woff2
+  AddType font/woff .woff
+  AddType audio/mp4 .m4a
+  AddType audio/mpeg .mp3
+</IfModule>
+
+# 2. CHARSET PADRÃO
+AddDefaultCharset UTF-8
+
+# 3. COMPRESSÃO GZIP / DEFLATE (LITESPEED / APACHE)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html \
+                                text/plain \
+                                text/xml \
+                                text/css \
+                                text/javascript \
+                                application/javascript \
+                                application/x-javascript \
+                                application/json \
+                                application/manifest+json \
+                                application/xml \
+                                image/svg+xml \
+                                font/woff \
+                                font/woff2
+</IfModule>
+
+# 4. CABEÇALHOS DE SEGURANÇA E CACHE
+<IfModule mod_headers.c>
+  # Segurança estrita
+  Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; frame-src 'self'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; connect-src 'self' data: blob:; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests"
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=(), payment=(), usb=(), browsing-topics=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Cross-Origin-Resource-Policy "same-origin"
+  Header always set Origin-Agent-Cluster "?1"
+  Header always set X-DNS-Prefetch-Control "off"
+  Header always set X-Permitted-Cross-Domain-Policies "none"
+
+  # Cache imutável para assets versionados do Vite (/assets/*)
+  <If "%{REQUEST_URI} =~ m#^/assets/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+
+  # HTML, manifest e scripts de entrada da abertura nunca devem ficar no cache do navegador
+  <FilesMatch "^(index\.html|abertura\.js|esquema\.js|manifest\.webmanifest)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>
+
+# 5. EXPIRAÇÃO DE CACHE (MOD_EXPIRES)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/manifest+json "access plus 0 seconds"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType audio/mp4 "access plus 1 month"
+  ExpiresByType audio/mpeg "access plus 1 month"
+</IfModule>
+
+# 6. REESCRITA DE URL (ROTEAMENTO SPA E HTTPS)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Força HTTPS (compatível com Hostinger e proxy reverso de SSL)
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Endpoint de estatísticas na Hostinger (se PHP estiver presente)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^api/estatisticas/?$ api/estatisticas.php [L,QSA]
+
+  # Single Page Application: não reescreve arquivos reais nem pastas existentes
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# 7. DOCUMENTO DE ERRO SPA FALLBACK
+ErrorDocument 404 /index.html
+
+# 8. SEGURANÇA E BLOQUEIO DE ARQUIVOS CONFIDENCIAIS
+Options -Indexes
+
+<FilesMatch "^(\.env|\.git|\.htaccess|package\.json|package-lock\.json|tsconfig.*\.json|\.oxlintrc.*|.*\.sql|.*\.log|.*\.md)">
+  Require all denied
+</FilesMatch>
+

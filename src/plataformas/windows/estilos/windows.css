@@ -1,0 +1,85 @@
+html.cursor-alvo,
+html.cursor-alvo *,
+html.cursor-alvo *::before,
+html.cursor-alvo *::after {
+  cursor: none !important;
+}
+
+@media (forced-colors: active) {
+  html.cursor-alvo,
+  html.cursor-alvo *,
+  html.cursor-alvo *::before,
+  html.cursor-alvo *::after {
+    cursor: auto !important;
+  }
+
+  [data-cursor-alvo] {
+    display: none !important;
+  }
+}
+
+@media (pointer: coarse) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a,
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select {
+    touch-action: manipulation;
+  }
+}
+
+@media (max-width: 639.98px) {
+  h1,
+  h2,
+  h3 {
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: auto;
+  }
+
+  html {
+    scroll-padding-top: 4rem;
+  }
+
+  img,
+  video,
+  button,
+  [role="button"] {
+    max-width: 100%;
+  }
+}
+
+.card-3d-wrapper {
+  perspective: 800px;
+  transform-style: preserve-3d;
+}
+
+:root {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--color-yellow-400) 35%, transparent) var(--color-fundo);
+}
+
+:root::-webkit-scrollbar {
+  display: block;
+  width: 7px;
+  height: 7px;
+}
+
+:root::-webkit-scrollbar-track {
+  background: var(--color-fundo);
+}
+
+:root::-webkit-scrollbar-thumb {
+  background: rgba(250, 204, 21, 0.25);
+  border-radius: 9999px;
+  border: 1px solid rgba(250, 204, 21, 0.1);
+}
+
+:root::-webkit-scrollbar-thumb:hover {
+  background: rgba(250, 204, 21, 0.5);
+}
